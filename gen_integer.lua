@@ -124,7 +124,7 @@ for _, t1 in ipairs(types) do
         -- comparison
         if t1 == t2 then
           for _, op in ipairs(compare_ops) do
-            local op, sym, staop = unpack(op)
+            local op, sym, staop = table.unpack(op)
 
             g("fun %s_%s_%s ",
               op, mbindexed(i1,t1), mbindexed(i2,t2))
