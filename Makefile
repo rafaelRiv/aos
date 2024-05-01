@@ -95,8 +95,8 @@ clean:
 
 # Check out and build a patched version of the ATS compiler.
 compiler:
-	$(X)[ -e "compiler/" ] || { svn checkout "https://ats-lang.svn.sourceforge.net/svnroot/ats-lang/trunk" "compiler" && patch --directory="compiler/" -Np1 <"ats-anairiats-bignums.patch" ; }
-	$(X)[ -e "compiler/bootstrap0" ] || svn checkout "https://ats-lang.svn.sourceforge.net/svnroot/ats-lang/bootstrap/anairiats" "compiler/bootstrap0"
+	$(X)[ -e "compiler/" ] || { git clone git@github.com:rafaelRiv/ATS-Anairiats.git compiler && patch --directory="compiler/" -Np1 <"ats-anairiats-bignums.patch" ; }
+	$(X)[ -e "compiler/bootstrap1" ] || cp -R "compiler/ats-lang-anairiats-0.2.12/bootstrap1" "compiler/bootstrap1"
 	$(X)[ -e "compiler/configure" ] || { cd "compiler/" && { aclocal ; automake --add-missing ; autoconf ; } ; }
-	$(X)[ -e "compiler/config.h" ] || { cd "compiler/" && ./configure ; }
-	$(X)[ -e "compiler/bin/atsopt" ] || { cd "compiler/" && $(MAKE) atsopt0-anairiats bootstrapping atsopt1 ; }
+	{ cd "compiler/" && ./configure ; }
+	$(X)[ -e "compiler/bin/atsopt" ] || { cd "compiler/" && $(MAKE) atsopt0-anairiats atsopt1 ; }
