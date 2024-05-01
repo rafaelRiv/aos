@@ -8,7 +8,7 @@ CFLAGS ?= -std=c99 -Wall -Wextra -Wno-unused -march=i386 \
 LDFLAGS ?= -m32 -nostdlib -Wl,--build-id=none
 V ?= 0 # Verbosity
 
-SOURCES = prelude/limits.sats prelude/DATS/array.dats \
+SOURCES = prelude/limits.sats \
           portio.sats portio.dats \
           boot.dats vga-text.sats vga-text.dats \
           enablable.sats enablable.dats \
@@ -81,7 +81,7 @@ prelude/SATS/integer.sats: gen_integer.lua
 
 depend: prelude/SATS/integer.sats
 	$(ECHO) "    Analysing dependencies..."
-	$(X)$(ATSOPT) -dep1 -s $(sats_sources) -d $(dats_sources) \
+	$(X)$(ATSOPT) -dep -s $(sats_sources) -d $(dats_sources) \
 		| sed -r 's/^ *([^:]*)\.o *:/\1.c :/' > .depends.mak
 
 .PHONY: clean
